@@ -8,9 +8,9 @@ using System.Threading.Tasks;
 namespace Restaurant.PackingListServices.Contracts.Service
 {
 	/// <summary>
-	/// 
+	/// Сервис для высчитывания конечной цены
 	/// </summary>
-    public interface IOrderAmountCalculator
+	public interface IOrderAmountCalculator
     {
 		/// <summary>
 		/// 

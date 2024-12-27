@@ -2,10 +2,12 @@
 using Microsoft.AspNetCore.Mvc;
 using Restaurant.Contracts.Model;
 using Restaurant.Model;
+using Restaurant.Models;
 using Restaurant.PackingListServices.Contracts.Model;
 using Restaurant.PackingListServices.Contracts.Service;
 using Restaurant.PackingListServices.Service;
 using Restaurant.PackingListServices.ValidationService;
+using Restaurant.Produces;
 using AppContext = Restaurant.Context.AppContext;
 
 namespace Restaurant.Controllers
@@ -35,10 +37,8 @@ namespace Restaurant.Controllers
         }
 
 		/// <summary>
-		/// Получает список блюд
+		/// Получает список покупателей
 		/// </summary>
-		/// <param name="cancellationToken"></param>
-		/// <returns></returns>
 		[HttpGet]
 		[ProducesResponseType(typeof(IReadOnlyCollection<CustomerApiModel>), StatusCodes.Status200OK)]
 		public async Task<IActionResult> GetAll(CancellationToken cancellationToken)
@@ -49,13 +49,10 @@ namespace Restaurant.Controllers
 		}
 
 		/// <summary>
-		/// Получает блюдо по id
+		/// Получает покупателя по id
 		/// </summary>
-		/// <param name="id"></param>
-		/// <param name="cancellationToken"></param>
-		/// <returns></returns>
 		[HttpGet("{id:guid}")]
-		//[ProducesNotFoundAttribute()]
+		[ProducesNotFound()]
 		[ProducesResponseType(typeof(CustomerApiModel), StatusCodes.Status200OK)]
 		public async Task<IActionResult> GetById(Guid id, CancellationToken cancellationToken)
 		{
@@ -64,13 +61,11 @@ namespace Restaurant.Controllers
 		}
 
 		/// <summary>
-		/// Добавление нового блюда
+		/// Добавление нового покупателя
 		/// </summary>
-		/// <param name="model"></param>
-		/// <param name="cancellationToken"></param>
 		[HttpPost]
 		[ProducesResponseType(StatusCodes.Status204NoContent)]
-		//[ProducesResponseType(typeof(ErrorValidationModel), StatusCodes.Status406NotAcceptable)]
+		[ProducesResponseType(typeof(ErrorValidationModel), StatusCodes.Status406NotAcceptable)]
 		public async Task<IActionResult> Add(AddCustomerApiModel model, CancellationToken cancellationToken)
 		{
 			var entity = mapper.Map<AddCustomerModel>(model);
@@ -80,13 +75,10 @@ namespace Restaurant.Controllers
 		}
 
 		/// <summary>
-		/// Редактирование блюда по id
+		/// Редактирование покупателя по id
 		/// </summary>
-		/// <param name="id"></param>
-		/// <param name="request"></param>
-		/// <param name="cancellationToken"></param>
 		[HttpPut("{id:guid}")]
-		//[ProducesResponseType(typeof(ErrorValidationModel), StatusCodes.Status406NotAcceptable)]
+		[ProducesResponseType(typeof(ErrorValidationModel), StatusCodes.Status406NotAcceptable)]
 		[ProducesResponseType(StatusCodes.Status204NoContent)]
 		public async Task<IActionResult> Edit(Guid id, AddCustomerApiModel request, CancellationToken cancellationToken)
 		{
@@ -98,12 +90,10 @@ namespace Restaurant.Controllers
 		}
 
 		/// <summary>
-		/// Удаляет блюдо по id
+		/// Удаляет покупателя по id
 		/// </summary>
-		/// <param name="id"></param>
-		/// <param name="cancellationToken"></param>
 		[HttpDelete("{id:guid}")]
-		//[ProducesNotFoundAttribute()]
+		[ProducesNotFound()]
 		[ProducesResponseType(StatusCodes.Status204NoContent)]
 		public async Task<IActionResult> Delete(Guid id, CancellationToken cancellationToken)
 		{

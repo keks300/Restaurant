@@ -13,6 +13,7 @@ using System.Threading.Tasks;
 
 namespace Restaurant.PackingListServices.Service
 {
+	/// <inheritdoc cref="IDishService"/>
 	public class DishService : IDishService
 	{
         private readonly IMapper mapper;
@@ -20,6 +21,9 @@ namespace Restaurant.PackingListServices.Service
 		private readonly IWriteRepository<Dish> dishWriteRepository;
 		private readonly IUnitOfWork unitOfWork;
 
+		/// <summary>
+		/// ctor
+		/// </summary>
         public DishService(
 			IMapper mapper, 
 			IReadRepository<Dish> dishReadRepository,
@@ -32,6 +36,7 @@ namespace Restaurant.PackingListServices.Service
 			this.unitOfWork = unitOfWork;
         }
 
+		/// <inheritdoc/>
         public async Task<Guid> AddDish(AddDishModel model, CancellationToken cancellationToken)
 		{
 			var entity = mapper.Map<Dish>(model);
@@ -40,6 +45,7 @@ namespace Restaurant.PackingListServices.Service
 			return entity.Id;
 		}
 
+		/// <inheritdoc/>
 		public async Task DeleteDish(Guid id, CancellationToken cancellationToken)
 		{
 			var result = await dishReadRepository.GetById(id, cancellationToken);
@@ -53,6 +59,7 @@ namespace Restaurant.PackingListServices.Service
 			await unitOfWork.CommitAsync(cancellationToken);
 		}
 
+		/// <inheritdoc/>
 		public async Task EditDish(DishModel model, CancellationToken cancellationToken)
 		{
 			var dish = await dishReadRepository.GetById(model.Id, cancellationToken);
@@ -69,12 +76,14 @@ namespace Restaurant.PackingListServices.Service
 			await unitOfWork.CommitAsync(cancellationToken);
 		}
 
+		/// <inheritdoc/>
 		public async Task<IReadOnlyCollection<DishModel>> GetAllDishes(CancellationToken cancellationToken)
 		{
 			var dishes = await dishReadRepository.GetAll(cancellationToken);
 			return mapper.Map<IReadOnlyCollection<DishModel>>(dishes);
 		}
 
+		/// <inheritdoc/>
 		public async Task<DishModel> GetDishById(Guid id, CancellationToken cancellationToken)
 		{
 			var dish = await dishReadRepository.GetById(id, cancellationToken);

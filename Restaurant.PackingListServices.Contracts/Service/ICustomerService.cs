@@ -7,45 +7,34 @@ using System.Threading.Tasks;
 
 namespace Restaurant.PackingListServices.Contracts.Service
 {
+	/// <summary>
+	/// Сервис по управлению <see cref="CustomerModel"/>
+	/// </summary>
 	public interface ICustomerService
 	{
 		/// <summary>
-		/// 
+		/// Получает список покупателей
 		/// </summary>
-		/// <param name="cancellationToken"></param>
-		/// <returns></returns>
 		Task<IReadOnlyCollection<CustomerModel>> GetAllCustomers(CancellationToken cancellationToken);
 
 		/// <summary>
-		/// 
+		/// Получает покупателя по id
 		/// </summary>
-		/// <param name="id"></param>
-		/// <param name="cancellationToken"></param>
-		/// <returns></returns>
 		Task<CustomerModel> GetCustomerById(Guid id, CancellationToken cancellationToken);
 
 		/// <summary>
-		/// 
+		/// Добавление нового покупателя
 		/// </summary>
-		/// <param name="model"></param>
-		/// <param name="cancellationToken"></param>
-		/// <returns></returns>
 		Task<Guid> AddCustomer(AddCustomerModel model, CancellationToken cancellationToken);
 
 		/// <summary>
-		/// 
+		/// Редактирование покупателя по id
 		/// </summary>
-		/// <param name="model"></param>
-		/// <param name="cancellationToken"></param>
-		/// <returns></returns>
 		Task EditCustomer(CustomerModel model, CancellationToken cancellationToken);
 
 		/// <summary>
-		/// 
+		/// Удаляет покупателя по id
 		/// </summary>
-		/// <param name="id"></param>
-		/// <param name="cancellationToken"></param>
-		/// <returns></returns>
 		Task DeleteCustomer(Guid id, CancellationToken cancellationToken);
 	}
 }

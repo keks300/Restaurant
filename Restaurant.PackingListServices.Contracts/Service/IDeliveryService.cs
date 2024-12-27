@@ -7,45 +7,34 @@ using System.Threading.Tasks;
 
 namespace Restaurant.PackingListServices.Contracts.Service
 {
+	/// <summary>
+	/// Сервис по управлению <see cref="DeliveryModel"/>
+	/// </summary>
 	public interface IDeliveryService
 	{
 		/// <summary>
-		/// 
+		/// Получает список данных для доставки
 		/// </summary>
-		/// <param name="cancellationToken"></param>
-		/// <returns></returns>
-		Task<IReadOnlyCollection<DeliveryModel>> GetAll(CancellationToken cancellationToken);
+		Task<IReadOnlyCollection<DeliveryModel>> GetAllDelivery(CancellationToken cancellationToken);
 
 		/// <summary>
-		/// 
+		/// Получает данные для доставки по id
 		/// </summary>
-		/// <param name="id"></param>
-		/// <param name="cancellationToken"></param>
-		/// <returns></returns>
-		Task<DeliveryModel> GetById(Guid id, CancellationToken cancellationToken);
+		Task<DeliveryModel> GetDeliveryById(Guid id, CancellationToken cancellationToken);
 
 		/// <summary>
-		/// 
+		/// Добавление новых данных для доставки
 		/// </summary>
-		/// <param name="model"></param>
-		/// <param name="cancellationToken"></param>
-		/// <returns></returns>
-		Task<Guid> Add(AddDeliveryModel model, CancellationToken cancellationToken);
+		Task<Guid> AddDelivery(AddDeliveryModel model, CancellationToken cancellationToken);
 
 		/// <summary>
-		/// 
+		/// Редактирование данных для доставки по id
 		/// </summary>
-		/// <param name="model"></param>
-		/// <param name="cancellationToken"></param>
-		/// <returns></returns>
-		Task Edit(DeliveryModel model, CancellationToken cancellationToken);
+		Task EditDelivery(DeliveryModel model, CancellationToken cancellationToken);
 
 		/// <summary>
-		/// 
+		/// Удаляет данные для доставки по id
 		/// </summary>
-		/// <param name="id"></param>
-		/// <param name="cancellationToken"></param>
-		/// <returns></returns>
-		Task Delete(Guid id, CancellationToken cancellationToken);
+		Task DeleteDelivery(Guid id, CancellationToken cancellationToken);
 	}
 }

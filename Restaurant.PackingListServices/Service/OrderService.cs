@@ -10,6 +10,7 @@ using Restaurant.Repositories.Contracts;
 
 namespace Restaurant.PackingListServices.Service
 {
+	/// <inheritdoc cref="IOrderService"/>
 	public class OrderService : IOrderService
 	{
 		private readonly IMapper mapper;
@@ -19,6 +20,9 @@ namespace Restaurant.PackingListServices.Service
 		private readonly IOrderDishService orderDishService;
 		private readonly IOrderAmountCalculator orderAmountCalculator;
 
+		/// <summary>
+		/// ctor
+		/// </summary>
 		public OrderService(
 			IMapper mapper,
 			IReadRepository<Order> orderReadRepository,
@@ -35,6 +39,7 @@ namespace Restaurant.PackingListServices.Service
 			this.orderAmountCalculator = orderAmountCalculator;
 		}
 
+		/// <inheritdoc/>
 		public async Task<Guid> AddOrder(AddOrderModel model, CancellationToken cancellationToken)
 		{
 			var order = mapper.Map<Order>(model);
@@ -52,6 +57,7 @@ namespace Restaurant.PackingListServices.Service
 			return order.Id;
 		}
 
+		/// <inheritdoc/>
 		public async Task<OrderModel> GetOrderById(Guid id, CancellationToken cancellationToken)
 		{
 			var order = await orderReadRepository.GetById(id, cancellationToken);
@@ -66,6 +72,7 @@ namespace Restaurant.PackingListServices.Service
 			return orderModel;
 		}
 
+		/// <inheritdoc/>
 		public async Task<IReadOnlyCollection<OrderModel>> GetAllOrders(CancellationToken cancellationToken)
 		{
 			var orders = await orderReadRepository.GetAll(cancellationToken);
@@ -82,15 +89,16 @@ namespace Restaurant.PackingListServices.Service
 			return orderModels;
 		}
 
+		/// <inheritdoc/>
 		public async Task EditOrder(OrderModel model, CancellationToken cancellationToken)
 		{
 			var existingOrder = await orderReadRepository.GetById(model.Id, cancellationToken);
 			if (existingOrder == null)
 			{
-				throw new KeyNotFoundException($"Order with ID {model.Id} not found.");
+				throw new NotFoundModelException(model.Id);
 			}
 
-			mapper.Map(model, existingOrder);
+			existingOrder.CustomerId = model.CustomerId;
 			existingOrder.TotalAmount = await orderAmountCalculator.CalculateTotalAmount(model.Dishes, cancellationToken);
 			orderWriteRepository.Update(existingOrder);
 
@@ -99,9 +107,13 @@ namespace Restaurant.PackingListServices.Service
 				await orderDishService.EditDishesInOrder(model.Id, model.Dishes, cancellationToken);
 			}
 
+
+
+
 			await unitOfWork.CommitAsync(cancellationToken);
 		}
 
+		/// <inheritdoc/>
 		public async Task DeleteOrder(Guid id, CancellationToken cancellationToken)
 		{
 			var order = await orderReadRepository.GetById(id, cancellationToken);

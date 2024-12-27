@@ -7,48 +7,34 @@ using System.Threading.Tasks;
 
 namespace Restaurant.PackingListServices.Contracts.Service
 {
-    /// <summary>
-    /// 
-    /// </summary>
-    public interface IDishService
+	/// <summary>
+	/// Сервис по управлению <see cref="DishModel"/>
+	/// </summary>
+	public interface IDishService
     {
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="cancellationToken"></param>
-        /// <returns></returns>
-        Task<IReadOnlyCollection<DishModel>> GetAllDishes(CancellationToken cancellationToken);
+		/// <summary>
+		/// Получает список блюд
+		/// </summary>
+		Task<IReadOnlyCollection<DishModel>> GetAllDishes(CancellationToken cancellationToken);
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="id"></param>
-        /// <param name="cancellationToken"></param>
-        /// <returns></returns>
-        Task<DishModel> GetDishById(Guid id, CancellationToken cancellationToken);
+		/// <summary>
+		/// Получает блюдо по id
+		/// </summary>>
+		Task<DishModel> GetDishById(Guid id, CancellationToken cancellationToken);
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="model"></param>
-        /// <param name="cancellationToken"></param>
-        /// <returns></returns>
-        Task<Guid> AddDish(AddDishModel model, CancellationToken cancellationToken);
+		/// <summary>
+		/// Получает блюдо по id
+		/// </summary>
+		Task<Guid> AddDish(AddDishModel model, CancellationToken cancellationToken);
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="model"></param>
-        /// <param name="cancellationToken"></param>
-        /// <returns></returns>
-        Task EditDish(DishModel model, CancellationToken cancellationToken);
+		/// <summary>
+		/// Добавление нового блюда
+		/// </summary>
+		Task EditDish(DishModel model, CancellationToken cancellationToken);
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="id"></param>
-        /// <param name="cancellationToken"></param>
-        /// <returns></returns>
-        Task DeleteDish(Guid id, CancellationToken cancellationToken);
+		/// <summary>
+		/// Редактирование блюда по id
+		/// </summary>
+		Task DeleteDish(Guid id, CancellationToken cancellationToken);
     }
 }
