@@ -12,7 +12,7 @@ using Restaurant.Context;
 namespace Restaurant.Context.Migrations
 {
     [DbContext(typeof(AppContext))]
-    [Migration("20241226184047_init")]
+    [Migration("20241227191814_init")]
     partial class init
     {
         /// <inheritdoc />
@@ -70,15 +70,18 @@ namespace Restaurant.Context.Migrations
                     b.Property<DateTimeOffset?>("Deleted")
                         .HasColumnType("datetimeoffset");
 
+                    b.Property<string>("DeliveryAddress")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<DateTime>("DeliveryDate")
                         .HasColumnType("datetime2");
 
                     b.Property<Guid>("OrderId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<string>("Status")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("Status")
+                        .HasColumnType("int");
 
                     b.Property<DateTimeOffset>("UpdatedAt")
                         .HasColumnType("datetimeoffset");
@@ -125,46 +128,6 @@ namespace Restaurant.Context.Migrations
                         .HasFilter("Deleted IS NULL");
 
                     b.ToTable("Dish", (string)null);
-                });
-
-            modelBuilder.Entity("Restaurant.Contracts.Model.Menu", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<DateTimeOffset>("CreatedAt")
-                        .HasColumnType("datetimeoffset");
-
-                    b.Property<DateTimeOffset?>("Deleted")
-                        .HasColumnType("datetimeoffset");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
-
-                    b.Property<DateTimeOffset>("UpdatedAt")
-                        .HasColumnType("datetimeoffset");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Menu", (string)null);
-                });
-
-            modelBuilder.Entity("Restaurant.Contracts.Model.MenuDish", b =>
-                {
-                    b.Property<Guid>("MenuId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid>("DishId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.HasKey("MenuId", "DishId");
-
-                    b.HasIndex("DishId");
-
-                    b.ToTable("MenuDish", (string)null);
                 });
 
             modelBuilder.Entity("Restaurant.Contracts.Model.Order", b =>
@@ -239,25 +202,6 @@ namespace Restaurant.Context.Migrations
                     b.Navigation("Order");
                 });
 
-            modelBuilder.Entity("Restaurant.Contracts.Model.MenuDish", b =>
-                {
-                    b.HasOne("Restaurant.Contracts.Model.Dish", "Dish")
-                        .WithMany("MenuDishes")
-                        .HasForeignKey("DishId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Restaurant.Contracts.Model.Menu", "Menu")
-                        .WithMany("MenuDishes")
-                        .HasForeignKey("MenuId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Dish");
-
-                    b.Navigation("Menu");
-                });
-
             modelBuilder.Entity("Restaurant.Contracts.Model.Order", b =>
                 {
                     b.HasOne("Restaurant.Contracts.Model.Customer", "Customer")
@@ -295,14 +239,7 @@ namespace Restaurant.Context.Migrations
 
             modelBuilder.Entity("Restaurant.Contracts.Model.Dish", b =>
                 {
-                    b.Navigation("MenuDishes");
-
                     b.Navigation("OrderDishes");
-                });
-
-            modelBuilder.Entity("Restaurant.Contracts.Model.Menu", b =>
-                {
-                    b.Navigation("MenuDishes");
                 });
 
             modelBuilder.Entity("Restaurant.Contracts.Model.Order", b =>

@@ -11,6 +11,7 @@ using System.Threading.Tasks;
 
 namespace Restaurant.PackingListServices.Service
 {
+	/// <inheritdoc  cref="IOrderAmountCalculator"/>
 	public class OrderAmountCalculator : IOrderAmountCalculator
 	{
 		private readonly IReadRepository<Dish> dishReadRepository;

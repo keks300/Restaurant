@@ -21,17 +21,9 @@ namespace WebApiTest.Api.Contracts.Configurations
 				.IsRequired()
 				.HasMaxLength(100);
 
-			builder.HasIndex(d => d.Name)
-				.IsUnique()
-				.HasFilter("Deleted IS NULL");
-
 			builder.HasMany(d => d.OrderDishes)
 				.WithOne(od => od.Dish)
 				.HasForeignKey(od => od.DishId);
-
-			builder.HasMany(d => d.MenuDishes)
-				.WithOne(md => md.Dish)
-				.HasForeignKey(md => md.DishId);
 		}
 	}
 }

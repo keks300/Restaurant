@@ -25,10 +25,7 @@ static internal class SwaggerDocExtensions
                 options.SwaggerDoc($"{nameof(Dish)}", new OpenApiInfo { Title = "Блюдо", Version = "v1", });
 				options.SwaggerDoc($"{nameof(Customer)}", new OpenApiInfo { Title = "Покупатель", Version = "v1", });
 				options.SwaggerDoc($"{nameof(Order)}", new OpenApiInfo { Title = "Заказ", Version = "v1", });
-
-				//options.SwaggerDoc($"{nameof(Delivery)}", new OpenApiInfo { Title = "Доставка", Version = "v1", });
-
-				//options.SwaggerDoc($"{nameof(Menu)}", new OpenApiInfo { Title = "Меню", Version = "v1", });
+                options.SwaggerDoc($"{nameof(Delivery)}", new OpenApiInfo { Title = "Доставка", Version = "v1", });
 			});
     }
 
@@ -43,9 +40,7 @@ static internal class SwaggerDocExtensions
 				options.SwaggerEndpoint($"{nameof(Dish)}/swagger.json", "Блюдо");
                 options.SwaggerEndpoint($"{nameof(Customer)}/swagger.json", "Покупатель");
 				options.SwaggerEndpoint($"{nameof(Order)}/swagger.json", "Заказ");
-				//options.SwaggerEndpoint($"{nameof(Delivery)}/swagger.json", "Доставка");
-				//options.SwaggerEndpoint($"{nameof(Menu)}/swagger.json", "Меню");
-
+				options.SwaggerEndpoint($"{nameof(Delivery)}/swagger.json", "Доставка");
 			});
     }
 }

@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Restaurant.Context.Contracts;
 using System.Diagnostics.CodeAnalysis;
-using WebApiTest.Api.Contracts.Configurations;
+using Restaurant.Contracts.Configurations;
 
 
 namespace Restaurant.Context
@@ -18,7 +18,7 @@ namespace Restaurant.Context
 
 
 	public class AppContext : DbContext, IReader, IUnitOfWork, IWriter
-    {
+	{
         public AppContext(DbContextOptions<AppContext> options) : base(options) 
         {
         }

@@ -3,9 +3,11 @@ using Azure.Core;
 using Microsoft.AspNetCore.Mvc;
 using Restaurant.Contracts.Model;
 using Restaurant.Model;
+using Restaurant.Models;
 using Restaurant.PackingListServices.Contracts.Model;
 using Restaurant.PackingListServices.Contracts.Service;
 using Restaurant.PackingListServices.ValidationService;
+using Restaurant.Produces;
 using AppContext = Restaurant.Context.AppContext;
 
 namespace Restaurant.Controllers
@@ -26,10 +28,6 @@ namespace Restaurant.Controllers
 		/// <summary>
 		/// ctor
 		/// </summary>
-		/// <param name="appContext"></param>
-		/// <param name="orderService"></param>
-		/// <param name="mapper"></param>
-		/// <param name="validationService"></param>
 		public OrderController(AppContext appContext, IOrderService orderService, IMapper mapper, IValidationService validationService)
 		{
 			this.appContext = appContext;
@@ -41,8 +39,6 @@ namespace Restaurant.Controllers
 		/// <summary>
 		/// Получает список заказов
 		/// </summary>
-		/// <param name="cancellationToken"></param>
-		/// <returns></returns>
 		[HttpGet]
 		[ProducesResponseType(typeof(IReadOnlyCollection<OrderApiModel>), StatusCodes.Status200OK)]
 		public async Task<IActionResult> GetAllOrders(CancellationToken cancellationToken)
@@ -54,11 +50,8 @@ namespace Restaurant.Controllers
 		/// <summary>
 		/// Получает заказ по id
 		/// </summary>
-		/// <param name="id"></param>
-		/// <param name="cancellationToken"></param>
-		/// <returns></returns>
 		[HttpGet("{id:guid}")]
-		//[ProducesNotFoundAttribute()]
+		[ProducesNotFound()]
 		[ProducesResponseType(typeof(OrderApiModel), StatusCodes.Status200OK)]
 		public async Task<IActionResult> GetOrderById(Guid id, CancellationToken cancellationToken)
 		{
@@ -69,12 +62,9 @@ namespace Restaurant.Controllers
 		/// <summary>
 		/// Добавление нового заказа
 		/// </summary>
-		/// <param name="model"></param>
-		/// <param name="cancellationToken"></param>
-		/// <returns></returns>
 		[HttpPost]
 		[ProducesResponseType(StatusCodes.Status204NoContent)]
-		//[ProducesResponseType(typeof(ErrorValidationModel), StatusCodes.Status406NotAcceptable)]
+		[ProducesResponseType(typeof(ErrorValidationModel), StatusCodes.Status406NotAcceptable)]
 		public async Task<IActionResult> AddOrder(AddOrderApiModel model, CancellationToken cancellationToken)
 		{
 			var addOrderModel = mapper.Map<AddOrderModel>(model);
@@ -85,12 +75,8 @@ namespace Restaurant.Controllers
 		/// <summary>
 		/// Редактирование заказа по id
 		/// </summary>
-		/// <param name="id"></param>
-		/// <param name="request"></param>
-		/// <param name="cancellationToken"></param>
-		/// <returns></returns>
 		[HttpPut("{id:guid}")]
-		//[ProducesResponseType(typeof(ErrorValidationModel), StatusCodes.Status406NotAcceptable)]
+		[ProducesResponseType(typeof(ErrorValidationModel), StatusCodes.Status406NotAcceptable)]
 		public async Task<IActionResult> EditOrder(Guid id, AddOrderApiModel request, CancellationToken cancellationToken)
 		{
 			var model = mapper.Map<OrderModel>(request);
@@ -102,11 +88,8 @@ namespace Restaurant.Controllers
 		/// <summary>
 		/// Удаляет заказ по id
 		/// </summary>
-		/// <param name="id"></param>
-		/// <param name="cancellationToken"></param>
-		/// <returns></returns>
 		[HttpDelete("{id:guid}")]
-		//[ProducesNotFoundAttribute()]
+		[ProducesNotFound()]
 		[ProducesResponseType(StatusCodes.Status204NoContent)]
 		public async Task<IActionResult> DeleteOrder(Guid id, CancellationToken cancellationToken)
 		{

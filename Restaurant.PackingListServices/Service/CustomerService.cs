@@ -13,6 +13,7 @@ using System.Threading.Tasks;
 
 namespace Restaurant.PackingListServices.Service
 {
+	/// <inheritdoc cref="ICustomerService"/>
 	public class CustomerService : ICustomerService
 	{
 		private readonly IMapper mapper;
@@ -20,6 +21,9 @@ namespace Restaurant.PackingListServices.Service
 		private readonly IWriteRepository<Customer> customerWriteRepository;
 		private readonly IUnitOfWork unitOfWork;
 
+		/// <summary>
+		/// ctor
+		/// </summary>
         public CustomerService(IMapper mapper, IReadRepository<Customer> customerReadRepository, IWriteRepository<Customer> customerWriteRepository, IUnitOfWork unitOfWork)
         {
             this.mapper = mapper;
@@ -28,6 +32,7 @@ namespace Restaurant.PackingListServices.Service
 			this.unitOfWork = unitOfWork;
         }
 
+		/// <inheritdoc/>
         public async Task<Guid> AddCustomer(AddCustomerModel model, CancellationToken cancellationToken)
 		{
 			var entity = mapper.Map<Customer>(model);
@@ -36,6 +41,7 @@ namespace Restaurant.PackingListServices.Service
 			return entity.Id;
 		}
 
+		/// <inheritdoc/>
 		public async Task DeleteCustomer(Guid id, CancellationToken cancellationToken)
 		{
 			var result = await customerReadRepository.GetById(id, cancellationToken);
@@ -49,6 +55,7 @@ namespace Restaurant.PackingListServices.Service
 			await unitOfWork.CommitAsync(cancellationToken);
 		}
 
+		/// <inheritdoc/>
 		public async Task EditCustomer(CustomerModel model, CancellationToken cancellationToken)
 		{
 			var dish = await customerReadRepository.GetById(model.Id, cancellationToken);
@@ -65,12 +72,14 @@ namespace Restaurant.PackingListServices.Service
 			await unitOfWork.CommitAsync(cancellationToken);
 		}
 
+		/// <inheritdoc/>
 		public async Task<IReadOnlyCollection<CustomerModel>> GetAllCustomers(CancellationToken cancellationToken)
 		{
 			var dishes = await customerReadRepository.GetAll(cancellationToken);
 			return mapper.Map<IReadOnlyCollection<CustomerModel>>(dishes);
 		}
 
+		/// <inheritdoc/>
 		public async Task<CustomerModel> GetCustomerById(Guid id, CancellationToken cancellationToken)
 		{
 			var dish = await customerReadRepository.GetById(id, cancellationToken);

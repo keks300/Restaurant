@@ -2,9 +2,11 @@
 using Microsoft.AspNetCore.Mvc;
 using Restaurant.Contracts.Model;
 using Restaurant.Model;
+using Restaurant.Models;
 using Restaurant.PackingListServices.Contracts.Model;
 using Restaurant.PackingListServices.Contracts.Service;
 using Restaurant.PackingListServices.ValidationService;
+using Restaurant.Produces;
 using AppContext = Restaurant.Context.AppContext;
 
 namespace Restaurant.Controllers
@@ -36,8 +38,6 @@ namespace Restaurant.Controllers
 		/// <summary>
 		/// Получает список блюд
 		/// </summary>
-		/// <param name="cancellationToken"></param>
-		/// <returns></returns>
 		[HttpGet]
 		[ProducesResponseType(typeof(IReadOnlyCollection<DishApiModel>), StatusCodes.Status200OK)]
 		public async Task<IActionResult> GetAll(CancellationToken cancellationToken)
@@ -50,11 +50,8 @@ namespace Restaurant.Controllers
 		/// <summary>
 		/// Получает блюдо по id
 		/// </summary>
-		/// <param name="id"></param>
-		/// <param name="cancellationToken"></param>
-		/// <returns></returns>
 		[HttpGet("{id:guid}")]
-		//[ProducesNotFoundAttribute()]
+		[ProducesNotFound()]
 		[ProducesResponseType(typeof(DishApiModel), StatusCodes.Status200OK)]
 		public async Task<IActionResult> GetById(Guid id, CancellationToken cancellationToken)
 		{
@@ -65,11 +62,9 @@ namespace Restaurant.Controllers
 		/// <summary>
 		/// Добавление нового блюда
 		/// </summary>
-		/// <param name="model"></param>
-		/// <param name="cancellationToken"></param>
 		[HttpPost]
 		[ProducesResponseType(StatusCodes.Status204NoContent)]
-		//[ProducesResponseType(typeof(ErrorValidationModel), StatusCodes.Status406NotAcceptable)]
+		[ProducesResponseType(typeof(ErrorValidationModel), StatusCodes.Status406NotAcceptable)]
 		public async Task<IActionResult> Add(AddDishApiModel model, CancellationToken cancellationToken)
 		{
 			var entity = mapper.Map<AddDishModel>(model);
@@ -81,17 +76,14 @@ namespace Restaurant.Controllers
 		/// <summary>
 		/// Редактирование блюда по id
 		/// </summary>
-		/// <param name="id"></param>
-		/// <param name="request"></param>
-		/// <param name="cancellationToken"></param>
 		[HttpPut("{id:guid}")]
-		//[ProducesResponseType(typeof(ErrorValidationModel), StatusCodes.Status406NotAcceptable)]
+		[ProducesResponseType(typeof(ErrorValidationModel), StatusCodes.Status406NotAcceptable)]
 		[ProducesResponseType(StatusCodes.Status204NoContent)]
 		public async Task<IActionResult> Edit(Guid id, AddDishApiModel request, CancellationToken cancellationToken)
 		{
 			var model = mapper.Map<DishModel>(request);
 			model.Id = id;
-
+			validationService.Validate(model);
 			await dishService.EditDish(model, cancellationToken);
 			return NoContent();
 		}
@@ -99,10 +91,8 @@ namespace Restaurant.Controllers
 		/// <summary>
 		/// Удаляет блюдо по id
 		/// </summary>
-		/// <param name="id"></param>
-		/// <param name="cancellationToken"></param>
 		[HttpDelete("{id:guid}")]
-		//[ProducesNotFoundAttribute()]
+		[ProducesNotFound()]
 		[ProducesResponseType(StatusCodes.Status204NoContent)]
 		public async Task<IActionResult> Delete(Guid id, CancellationToken cancellationToken)
 		{
