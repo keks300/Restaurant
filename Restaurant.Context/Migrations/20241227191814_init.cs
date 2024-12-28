@@ -46,21 +46,6 @@ namespace Restaurant.Context.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Menu",
-                columns: table => new
-                {
-                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    Name = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
-                    CreatedAt = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false),
-                    UpdatedAt = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false),
-                    Deleted = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Menu", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Order",
                 columns: table => new
                 {
@@ -83,37 +68,14 @@ namespace Restaurant.Context.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "MenuDish",
-                columns: table => new
-                {
-                    MenuId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    DishId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_MenuDish", x => new { x.MenuId, x.DishId });
-                    table.ForeignKey(
-                        name: "FK_MenuDish_Dish_DishId",
-                        column: x => x.DishId,
-                        principalTable: "Dish",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_MenuDish_Menu_MenuId",
-                        column: x => x.MenuId,
-                        principalTable: "Menu",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Delivery",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     OrderId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    DeliveryAddress = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     DeliveryDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    Status = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Status = table.Column<int>(type: "int", nullable: false),
                     CreatedAt = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false),
                     UpdatedAt = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false),
                     Deleted = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: true)
@@ -172,11 +134,6 @@ namespace Restaurant.Context.Migrations
                 filter: "Deleted IS NULL");
 
             migrationBuilder.CreateIndex(
-                name: "IX_MenuDish_DishId",
-                table: "MenuDish",
-                column: "DishId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_Order_CustomerId",
                 table: "Order",
                 column: "CustomerId");
@@ -199,13 +156,7 @@ namespace Restaurant.Context.Migrations
                 name: "Delivery");
 
             migrationBuilder.DropTable(
-                name: "MenuDish");
-
-            migrationBuilder.DropTable(
                 name: "OrderDish");
-
-            migrationBuilder.DropTable(
-                name: "Menu");
 
             migrationBuilder.DropTable(
                 name: "Dish");

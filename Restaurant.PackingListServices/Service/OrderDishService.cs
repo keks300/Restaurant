@@ -49,7 +49,7 @@ namespace Restaurant.PackingListServices.Service
 						Quantity = dish.Quantity
 					};
 
-					validationService.Validate(orderDish);
+					validationService.Validate(dish);
 					orderDishWriteRepository.Add(orderDish);
 				}
 			}

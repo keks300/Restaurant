@@ -2,7 +2,7 @@
 using Restaurant.PackingListServices.Contracts.Model;
 using Restaurant.Model;
 
-namespace WebApplication2.Infrastructure
+namespace Restaurant.Infrastructure
 {
 	public class ApiProfile : Profile
 	{
@@ -12,12 +12,6 @@ namespace WebApplication2.Infrastructure
 			CreateMap<DishModel, DishApiModel>(MemberList.Destination);
 			CreateMap<AddDishApiModel, AddDishModel>(MemberList.Destination);
 			CreateMap<AddDishApiModel, DishModel>(MemberList.Destination)
-				.ForMember(x => x.Id, opt => opt.Ignore());
-
-			//Маппинг для Menu
-				CreateMap<MenuModel, MenuApiModel>(MemberList.Destination);
-			CreateMap<AddMenuApiModel, AddMenuModel>(MemberList.Destination);
-			CreateMap<AddMenuApiModel, MenuModel>(MemberList.Destination)
 				.ForMember(x => x.Id, opt => opt.Ignore());
 
 			// Маппинг для Customer
@@ -34,7 +28,7 @@ namespace WebApplication2.Infrastructure
 
 			// Маппинг для Delivery
 			CreateMap<DeliveryModel, DeliveryApiModel>(MemberList.Destination);
-			CreateMap<AddOrderApiModel, AddOrderModel>(MemberList.Destination);
+			CreateMap<AddDeliveryApiModel, AddDeliveryModel>(MemberList.Destination);
 			CreateMap<AddDeliveryApiModel, DeliveryModel>(MemberList.Destination)
 				.ForMember(x => x.Id, opt => opt.Ignore());
 

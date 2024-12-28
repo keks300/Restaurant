@@ -45,7 +45,7 @@ namespace Restaurant.Controllers
 		public async Task<IActionResult> GetAllDelivery(CancellationToken cancellationToken)
 		{
 			var items = await deliveryService.GetAllDelivery(cancellationToken);
-			var result = mapper.Map<List<DishApiModel>>(items);
+			var result = mapper.Map<List<DeliveryApiModel>>(items);
 			return Ok(result);
 		}
 

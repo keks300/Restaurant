@@ -1,9 +1,14 @@
 ﻿using FluentValidation;
+using Restaurant.Contracts.Model;
 using Restaurant.PackingListServices.Contracts.Model;
 using Restaurant.PackingListServices.Exceptions;
 using Restaurant.PackingListServices.ValidationService;
 using Restaurant.PackingListServices.Validators.Customer;
+using Restaurant.PackingListServices.Validators.Delivery;
 using Restaurant.PackingListServices.Validators.Dish;
+using Restaurant.PackingListServices.Validators.Order;
+using WebApiTest.PackingListServices.Validators.Order;
+using WebApiTest.PackingListServices.Validators.OrderDish;
 
 namespace WebApiTest.PackingListServices
 {
@@ -21,8 +26,17 @@ namespace WebApiTest.PackingListServices
         {
             validators.Add(typeof(DishModel), new DishModelValidator());
             validators.Add(typeof(AddDishModel), new AddDishModelValidator());            
+            
             validators.Add(typeof(CustomerModel), new CustomerModelValidator());
             validators.Add(typeof(AddCustomerModel), new AddCustomerModelValidator());
+            
+            validators.Add(typeof(OrderModel), new OrderModelValidator());
+            validators.Add(typeof(AddOrderModel), new AddOrderModelValidator());            
+            
+            validators.Add(typeof(DeliveryModel), new DeliveryModelValidator());
+            validators.Add(typeof(AddDeliveryModel), new AddDeliveryModelValidator());
+
+            validators.Add(typeof(OrderDishModel), new OrderDishModelValidator());
         }
         public void Validate<TModel>(TModel model)
         {

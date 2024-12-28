@@ -53,7 +53,7 @@ namespace Restaurant.PackingListServices.Service
 				throw new NotFoundModelException(id);
 			}
 
-			deliveryWriteRepository.Delete(result);
+			deliveryWriteRepository.HardDelete(result);
 			await unitOfWork.CommitAsync(cancellationToken);
 		}
 
@@ -69,6 +69,7 @@ namespace Restaurant.PackingListServices.Service
 
 			delivery.OrderId = model.OrderId;
 			delivery.DeliveryAddress = model.DeliveryAddress;
+			delivery.DeliveryDate = model.DeliveryDate;
 			delivery.Status = model.Status;
 			deliveryWriteRepository.Update(delivery);
 			await unitOfWork.CommitAsync(cancellationToken);
@@ -77,18 +78,19 @@ namespace Restaurant.PackingListServices.Service
 		/// <inheritdoc/>
 		public async Task<IReadOnlyCollection<DeliveryModel>> GetAllDelivery(CancellationToken cancellationToken)
 		{
-			var dishes = await deliveryReadRepository.GetAll(cancellationToken);
-			return mapper.Map<IReadOnlyCollection<DeliveryModel>>(dishes);
+			var delivery = await deliveryReadRepository.GetAll(cancellationToken);
+			return mapper.Map<IReadOnlyCollection<DeliveryModel>>(delivery);
 		}
 
 		/// <inheritdoc/>
 		public async Task<DeliveryModel> GetDeliveryById(Guid id, CancellationToken cancellationToken)
 		{
-			var dish = await deliveryReadRepository.GetById(id, cancellationToken);
+			var delivery = await deliveryReadRepository.GetById(id, cancellationToken);
 
-			return dish == null
+			return delivery == null
 				? throw new NotFoundModelException(id)
-				: mapper.Map<DeliveryModel>(dish);
+				: mapper.Map<DeliveryModel>(delivery);
 		}
+
 	}
 }

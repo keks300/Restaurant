@@ -15,13 +15,19 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Restaurant.Contracts.Config
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Restaurant.Contracts", "Restaurant.Contracts\Restaurant.Contracts.csproj", "{2812F6EB-6E05-4AC5-88A2-50CFFD95073B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Restaurant.PackingListServices.Contracts", "Restaurant.PackingListServices.Contracts\Restaurant.PackingListServices.Contracts.csproj", "{D9DAD41B-1200-4854-B367-14A050C18C76}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Restaurant.PackingListServices.Contracts", "Restaurant.PackingListServices.Contracts\Restaurant.PackingListServices.Contracts.csproj", "{D9DAD41B-1200-4854-B367-14A050C18C76}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Restaurant.PackingListServices", "Restaurant.PackingListServices\Restaurant.PackingListServices.csproj", "{370B8288-02C0-445D-9208-F54F46C3D922}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Restaurant.PackingListServices", "Restaurant.PackingListServices\Restaurant.PackingListServices.csproj", "{370B8288-02C0-445D-9208-F54F46C3D922}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Restaurant.Repositories.Contracts", "Restaurant.Repositories.Contracts\Restaurant.Repositories.Contracts.csproj", "{5239730E-B641-4B0C-9140-49316ABAB6A3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Restaurant.Repositories.Contracts", "Restaurant.Repositories.Contracts\Restaurant.Repositories.Contracts.csproj", "{5239730E-B641-4B0C-9140-49316ABAB6A3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Restaurant.Repositories", "Restaurant.Repositories\Restaurant.Repositories.csproj", "{3D5621C1-63D7-4679-A951-B8914DD542CB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Restaurant.Repositories", "Restaurant.Repositories\Restaurant.Repositories.csproj", "{3D5621C1-63D7-4679-A951-B8914DD542CB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Restaurant.Repositories.Tests", "Restaurant.Repositories.Tests\Restaurant.Repositories.Tests.csproj", "{DA84A6C5-FD91-43EC-AA2D-F96447E5CC68}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Restaurant.Context.Test", "Restaurant.Context.Test\Restaurant.Context.Test.csproj", "{5F5D81EB-472C-433A-A687-CA5E14581ED3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Restaurant.PackingListServices.Tests", "Restaurant.PackingListServices.Tests\Restaurant.PackingListServices.Tests.csproj", "{78688B96-B4C9-4F74-B24D-58DBC9805E68}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -69,6 +75,18 @@ Global
 		{3D5621C1-63D7-4679-A951-B8914DD542CB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3D5621C1-63D7-4679-A951-B8914DD542CB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3D5621C1-63D7-4679-A951-B8914DD542CB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DA84A6C5-FD91-43EC-AA2D-F96447E5CC68}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DA84A6C5-FD91-43EC-AA2D-F96447E5CC68}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DA84A6C5-FD91-43EC-AA2D-F96447E5CC68}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DA84A6C5-FD91-43EC-AA2D-F96447E5CC68}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5F5D81EB-472C-433A-A687-CA5E14581ED3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5F5D81EB-472C-433A-A687-CA5E14581ED3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5F5D81EB-472C-433A-A687-CA5E14581ED3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5F5D81EB-472C-433A-A687-CA5E14581ED3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{78688B96-B4C9-4F74-B24D-58DBC9805E68}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{78688B96-B4C9-4F74-B24D-58DBC9805E68}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{78688B96-B4C9-4F74-B24D-58DBC9805E68}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{78688B96-B4C9-4F74-B24D-58DBC9805E68}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

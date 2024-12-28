@@ -47,12 +47,13 @@ namespace Restaurant.PackingListServices.Service
 			order.TotalAmount = await orderAmountCalculator.CalculateTotalAmount(model.Dishes, cancellationToken);
 
 			orderWriteRepository.Add(order);
-			await unitOfWork.CommitAsync(cancellationToken);
 
 			if (model.Dishes != null && model.Dishes.Count > 0)
 			{
 				await orderDishService.AddDishesToOrder(order.Id, model.Dishes, cancellationToken);
 			}
+
+			await unitOfWork.CommitAsync(cancellationToken);
 
 			return order.Id;
 		}

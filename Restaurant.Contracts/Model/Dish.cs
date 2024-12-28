@@ -23,6 +23,5 @@ namespace Restaurant.Contracts.Model
 
 		// Навигационные свойства
 		public ICollection<OrderDish> OrderDishes { get; set; }
-		public ICollection<MenuDish> MenuDishes { get; set; }
 	}
 }

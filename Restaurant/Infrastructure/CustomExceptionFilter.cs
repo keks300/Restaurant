@@ -1,14 +1,16 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
+using Microsoft.Data.SqlClient;
+using Microsoft.EntityFrameworkCore;
 using Restaurant.Models;
 using Restaurant.PackingListServices.Exceptions;
 
 
-namespace WebApplication2.Infrastructure
+namespace Restaurant.Infrastructure
 {
 	public class CustomExceptionFilter : IExceptionFilter
     {
-        public void OnException (ExceptionContext context)
+        public void OnException(ExceptionContext context)
         {
             if (context.Exception is ModelException exception)
             {
@@ -45,6 +47,20 @@ namespace WebApplication2.Infrastructure
                             ErrorCode = StatusCodes.Status400BadRequest,
                         }));
                         break;
+                }
+            }
+            else if (context.Exception is DbUpdateException dbUpdateException)
+            {
+                if (dbUpdateException.InnerException is SqlException sqlException)
+                {
+                    if (sqlException.Number == 2601)
+                    {
+                        SetHandledException(context, new ConflictObjectResult(new ErrorModel
+                        {
+                            Message = "Такое поле уже существует.",
+                            ErrorCode = StatusCodes.Status409Conflict,
+                        }));
+                    }
                 }
             }
         }

@@ -55,7 +55,7 @@ namespace Restaurant.Context.Contracts
             }
         }
 
-		public void HardDelete([NotNull] IEnumerable<T> entities)
+		public void HardDelete([NotNull] T entities)
 		{
 			writer.Delete(entities);
 		}

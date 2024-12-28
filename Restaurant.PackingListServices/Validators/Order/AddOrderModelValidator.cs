@@ -13,7 +13,8 @@ namespace Restaurant.PackingListServices.Validators.Order
         /// </summary>
         public AddOrderModelValidator()
         {
-
+            RuleFor(x => x.CustomerId).NotEmpty().WithMessage("OrderId не может быть пустым.");
+            RuleFor(x => x.Dishes).NotEmpty();
 		}
     }
 }

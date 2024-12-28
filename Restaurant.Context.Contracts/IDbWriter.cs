@@ -29,7 +29,7 @@ namespace Restaurant.Context.Contracts
         /// <param name="entity"></param>
         void Delete([NotNull] TEntity entity);
 
-        void HardDelete(IEnumerable<TEntity> entities);
+        void HardDelete([NotNull] TEntity entities);
 
 	}
 }

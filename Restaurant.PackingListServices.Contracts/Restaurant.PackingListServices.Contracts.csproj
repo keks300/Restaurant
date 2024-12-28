@@ -12,4 +12,9 @@
 		<PackageReference Include="FluentValidation" Version="11.11.0" />
 	</ItemGroup>
 
+
+	<ItemGroup>
+	  <ProjectReference Include="..\Restaurant.Contracts\Restaurant.Contracts.csproj" />
+	</ItemGroup>
+
 </Project>
